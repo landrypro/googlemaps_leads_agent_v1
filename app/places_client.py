@@ -21,6 +21,9 @@ class PlacesClient:
         self.timeout_s = timeout_s
         self.session = requests.Session()
 
+        # print("BASE URL:", self.base_url)
+
+
     def _headers(self, field_mask: str) -> Dict[str, str]:
         # Field mask must be a comma-separated string, no spaces.
         return {
@@ -48,18 +51,28 @@ class PlacesClient:
             "maxResultCount": max_result_count,
             "languageCode": language_code,
             "regionCode": region_code,
-            "locationRestriction": {
+            "locationBias": {
                 "circle": {
-                    "center": {"latitude": center_lat, "longitude": center_lng},
+                    "center": {
+                        "latitude": center_lat,
+                        "longitude": center_lng,
+                    },
                     "radius": radius_m,
                 }
             },
+            # "locationRestriction": {
+            #     "circle": {
+            #         "center": {"latitude": center_lat, "longitude": center_lng},
+            #         "radius": radius_m,
+            #     }
+            # },
         }
         if page_token:
             payload["pageToken"] = page_token
 
         def call() -> Dict[str, Any]:
             r = self.session.post(url, headers=self._headers(field_mask), json=payload, timeout=self.timeout_s)
+            # print(r, 'aooo')
             if r.status_code >= 400:
                 raise RuntimeError(f"Places searchText failed: {r.status_code} {r.text}")
             return r.json()
