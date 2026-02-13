@@ -27,6 +27,7 @@ def export_to_xlsx(leads: Iterable[Lead], out_path: str) -> str:
 
     # Rows
     for lead in leads:
+        # print(lead, 'my row')
         ws.append([getattr(lead, attr) for _, attr in COLUMNS])
 
     # Autosize columns (simple heuristic)
