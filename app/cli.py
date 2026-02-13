@@ -39,7 +39,7 @@ def main() -> None:
         limit=args.limit,
         enrich=enrich,
     )
-
+    # print(leads, 'before exporting')
     export_to_xlsx(leads, out_path)
     print(f"OK: {len(leads)} leads exported -> {os.path.abspath(out_path)}")
 

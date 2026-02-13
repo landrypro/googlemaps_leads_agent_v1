@@ -72,7 +72,11 @@ class PlacesClient:
 
         def call() -> Dict[str, Any]:
             r = self.session.post(url, headers=self._headers(field_mask), json=payload, timeout=self.timeout_s)
-            # print(r, 'aooo')
+            # if r.ok:
+            #     print(r.text)
+            # else:
+            #     print(f"Request failed with status code: {r.status_code}")
+
             if r.status_code >= 400:
                 raise RuntimeError(f"Places searchText failed: {r.status_code} {r.text}")
             return r.json()

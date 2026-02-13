@@ -49,7 +49,7 @@ python -m app.cli \
   --center-lng -71.2080 \
   --radius-m 50000 \
   --limit 500 \
-  --enrich false \
+  --enrich true \
   --out leads_quebec_plomberie.xlsx
 ```
 

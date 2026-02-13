@@ -64,10 +64,11 @@ def collect_leads(
             break
 
     leads = list(results_by_id.values())
-
+    # print(leads, enrich)
     if enrich and leads:
         for i, lead in enumerate(leads):
             details = client.place_details(place_id=lead.place_id)
+            # print(details, 'checking')
             lead.phone = details.get("internationalPhoneNumber") or lead.phone
             lead.website = details.get("websiteUri") or lead.website
             leads[i] = lead
